@@ -1,0 +1,34 @@
+# Archivos y carpetas de compilación
+bin/
+obj/
+*.exe
+*.dll
+*.pdb
+*.app
+*.log
+
+# Archivos de usuario específicos de Visual Studio Code
+.vscode/
+
+# Archivos de usuario específicos de Visual Studio
+.vs/
+
+# Dependencias del entorno de desarrollo (por ejemplo, paquetes NuGet)
+*.nupkg
+*.snupkg
+
+# Configuraciones y datos generados por el usuario
+*.user
+*.lock.json
+project.lock.json
+
+# Archivos de configuración (incluyendo secretos o datos sensibles)
+appsettings.Development.json
+appsettings.*.json
+
+# Sistema operativo (por si estás en Windows o macOS)
+.DS_Store
+Thumbs.db
+
+# Carpetas y archivos de publicación
+publish/
