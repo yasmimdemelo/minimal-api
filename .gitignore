@@ -32,3 +32,5 @@ Thumbs.db
 
 # Carpetas y archivos de publicación
 publish/
+
+.fake
