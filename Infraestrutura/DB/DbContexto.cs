@@ -2,36 +2,32 @@ using Microsoft.EntityFrameworkCore;
 using MinimalApi.Dominio.Entidades;
 
 namespace MinimalApi.Infraestrutura.Db;
-
-
 public class DbContexto : DbContext
-
 {
-    // Crear una injeccion de independencia para el objeto
+    // Inyección de dependencias para la configuración
     private readonly IConfiguration _configuracaoAppSettings;
-    
-    // Hacer un constructor para receber una injeccion de independencia
+
+    // Constructor que recibe la configuración
     public DbContexto(IConfiguration configuracaoAppSettings)
     {
-       _configuracaoAppSettings = configuracaoAppSettings;
+        _configuracaoAppSettings = configuracaoAppSettings;
     }
 
-    public DbSet<Administrador> Adiministradores { get; set;} = default!;
+    // Definición del DbSet para Administrador
+    public DbSet<Administrador> Administradores { get; set; } = default!;
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        // variable para usar el iten de la injeccion de independencia
-        // ? = Si no encuentra nada, regresa vacio
-        var stringConexao = _configuracaoAppSettings.GetConnectionString("mysql")?.ToString();
-
-        // Agregar validacion "if" de optionsBuilder, despues de configuracion en Program.CS
-        if(!optionsBuilder.IsConfigured)
+        // Comprobar si ya está configurado
+        if (!optionsBuilder.IsConfigured)
         {
-            // Configuracion que passamos en el construtor
+            var stringConexao = _configuracaoAppSettings.GetConnectionString("mysql")?.ToString();
+            
+            // Configuración de MySQL si la cadena de conexión no está vacía
             if (!string.IsNullOrEmpty(stringConexao))
             {
                 optionsBuilder.UseMySql(
-                    stringConexao, 
+                    stringConexao,
                     ServerVersion.AutoDetect(stringConexao));
             }
         }

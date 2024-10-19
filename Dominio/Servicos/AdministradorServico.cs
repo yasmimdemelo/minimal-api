@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using MinimalApi.Infraestrutura.Db;
 using MinimalApi.Dominio.Entidades;
 using MinimalApi.Dominio.Interfaces;
 using MinimalApi.DTOs;
@@ -8,17 +9,21 @@ namespace MinimalApi.Dominio.Servicos;
 public class AdministradorServico : IAdministradorServico
 {
     //  Crear una injeccion de independencia para el objeto
-    private readonly DbContext _contexto;
+    private readonly DbContexto _contexto;
 
-    // Hacer un constructor para receber una injeccion de independencia
-    public AdministradorServico(DbContext contexto)
+     // Inyectar DbContexto en el constructor
+    public AdministradorServico(DbContexto contexto)
     {
         _contexto = contexto;
     }
 
-    // Agregar el metodo de DTOs
-    public List<Administrador> Login(LoginDTO loginDTO)
+    // Agregar el método de DTO
+    public Administrador? Login(LoginDTO loginDTO)
     {
-        throw new NotImplementedException();
+        // Utilizar el DbSet correctamente en el contexto
+        var adm = _contexto.Administradores
+            .Where(a => a.Email == loginDTO.Email && a.Senha == loginDTO.Senha)
+            .FirstOrDefault();
+        return adm;
     }
 }
