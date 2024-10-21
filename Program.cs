@@ -4,6 +4,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
 using MinimalApi.Dominio.Interfaces;
 using MinimalApi.Dominio.Servicos;
+using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,8 +23,8 @@ var app = builder.Build();
 
 app.MapGet("/", () => "Hello World!");
 
-app.MapPost("/login", (LoginDTO loginDTO) => {
-    if(loginDTO.Email == "yasmimdemelo@gmail.com" && loginDTO.Senha == "123456")
+app.MapPost("/login", ([FromBody] LoginDTO loginDTO, IAdministradorServico administradorServico) => {
+    if(administradorServico.Login(loginDTO) != null)
         return Results.Ok("Login con éxito");
     else 
         return Results.Unauthorized();
