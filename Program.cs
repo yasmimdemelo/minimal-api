@@ -2,8 +2,13 @@ using MinimalApi.Infraestrutura.Db;
 using MinimalApi.DTOs;
 using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
+using MinimalApi.Dominio.Interfaces;
+using MinimalApi.Dominio.Servicos;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Agragar un Scoped
+builder.Services.AddScoped<IAdministradorServico, AdministradorServico>();
 
 // Recuperar mi stringConexao despues de configurada em DbContexto
 builder.Services.AddDbContext<DbContexto>(options => {
