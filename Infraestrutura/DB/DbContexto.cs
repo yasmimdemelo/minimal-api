@@ -16,6 +16,19 @@ public class DbContexto : DbContext
     // Definición del DbSet para Administrador
     public DbSet<Administrador> Administradores { get; set; } = default!;
 
+    // Definición del Seed para la automatización de la inserción de datos
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Administrador>().HasData(
+            new Administrador {
+                Id = 1,
+                Email = "administrador@teste.com",
+                Senha = "123456",
+                Perfil = "Adm"                 
+            }
+        );
+    }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         // Comprobar si ya está configurado

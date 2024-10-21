@@ -22,7 +22,7 @@ public class AdministradorServico : IAdministradorServico
     {
         // Utilizar el DbSet correctamente en el contexto
         var adm = _contexto.Administradores
-            .Where(a => a.Email == loginDTO.Email && a.Senha == loginDTO.Senha)
+            .Where(a => a.Email == loginDTO.Email && a.Senha == loginDTO.Senha) //  consulta LINQ que filtra los administradores en base a dos condiciones - login y senha
             .FirstOrDefault();
         return adm;
     }
