@@ -16,6 +16,9 @@ public class DbContexto : DbContext
     // Definición del DbSet para Administrador
     public DbSet<Administrador> Administradores { get; set; } = default!;
 
+    // Definición del DbSet para Veiculo
+    public DbSet<Veiculo> Veiculos { get; set; } = default!;
+
     // Definición del Seed para la automatización de la inserción de datos
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
