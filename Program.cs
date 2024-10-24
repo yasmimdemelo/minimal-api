@@ -19,6 +19,10 @@ builder.Services.AddDbContext<DbContexto>(options => {
     );
 });
 
+// Agregar servicios para Swagger
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
 var app = builder.Build();
 
 app.MapGet("/", () => "Hello World!");
@@ -29,5 +33,9 @@ app.MapPost("/login", ([FromBody] LoginDTO loginDTO, IAdministradorServico admin
     else 
         return Results.Unauthorized();
 });
+
+//  Estos middlewares de Swagger, para la interfaz de usuario de Swagger en el navegador.
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.Run();
